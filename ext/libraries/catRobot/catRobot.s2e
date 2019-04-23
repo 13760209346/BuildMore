@@ -1,0 +1,54 @@
+{	"extensionName": "catRobot",
+	"extensionPort": 0,
+	"sort":2,
+	"firmware":"1.2.3",
+	"javascriptURL":"js/catRobot.js",
+	"blockSpecs": [
+		["h","catRobot Program","runArduino",{"src":"catRobot","inc":"#include <BDDCore.h>\n","def":"BDDMiMi mimiRobot;\n","setup":"mimiRobot.Servo_Init();\n","loop":""}],
+		
+		["-"],
+		
+		["w", "%m.direction %n step","runBot", "run forward",3,
+		{"encode":"{s0}{s1}","setup":"","inc":"","def":"","work":"mimiRobot.action({0},{1});\n","loop":""}],
+		
+		["w", "dancing %d.dance","dance",1,
+		{"encode":"{s0}","setup":"","inc":"","def":"","work":"mimiRobot.dancing({0});\n","loop":""}],
+		
+		["w", "play tone on note %d.note beat %d.beats","runBuzzer", "C4", "Half",
+		{"encode":"{s0}{s1}","setup":"","inc":"","def":"","work":"mimiRobot.tone({0}, {1});\ndelay(20);\n","loop":""}],
+		
+		["w", "stop tone","stopBuzzer",0,
+		{"encode":"{s0}","setup":"","inc":"","def":"","work":"mimiRobot.noTone();\n","loop":""}],
+		
+		["w", "ultrasonic get %n cm","setUltrasonic",30,
+		{"encode":"{s0}","setup":"","inc":"","def":"","work":"","loop":"mimiRobot.ultrasonic_avoidance({0});\n"}],
+		
+		["w","receive remote","getIrRemote",
+		{"encode":"","setup":"mimiRobot.irrecv_init();\n","inc":"","def":"","work":"","loop":"mimiRobot.irrecv_action();\n"}]
+		
+	],
+	"menus": {
+		"note":["C2","D2","E2","F2","G2","A2","B2","C3","D3","E3","F3","G3","A3","B3","C4","D4","E4","F4","G4","A4","B4","C5","D5","E5","F5","G5","A5","B5","C6","D6","E6","F6","G6","A6","B6","C7","D7","E7","F7","G7","A7","B7","C8","D8"],
+		"beats":["Half","Quarter","Eighth","Whole","Double"],
+		"direction":["run forward","run backward","turn right","turn left"],
+		"dance":[1,2,3]
+	},
+	"values":{
+		"Half":500,"Quarter":250,"Eighth":125,"Whole":1000,"Double":2000,"Zero":0,
+		"buzzer":34,
+		"run forward":1,
+		"run backward":2,
+		"turn left":3,
+		"turn right":4,
+		"B0":31,"C1":33,"D1":37,"E1":41,"F1":44,"G1":49,"A1":55,"B1":62,
+			"C2":65,"D2":73,"E2":82,"F2":87,"G2":98,"A2":110,"B2":123,
+			"C3":131,"D3":147,"E3":165,"F3":175,"G3":196,"A3":220,"B3":247,
+			"C4":262,"D4":294,"E4":330,"F4":349,"G4":392,"A4":440,"B4":494,
+			"C5":523,"D5":587,"E5":659,"F5":698,"G5":784,"A5":880,"B5":988,
+			"C6":1047,"D6":1175,"E6":1319,"F6":1397,"G6":1568,"A6":1760,"B6":1976,
+			"C7":2093,"D7":2349,"E7":2637,"F7":2794,"G7":3136,"A7":3520,"B7":3951,
+			"C8":4186,"D8":4699
+	},
+	"translators":{
+	}
+}
